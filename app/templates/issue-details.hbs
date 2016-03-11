@@ -1,0 +1,62 @@
+{{outlet}}
+<div class="container color-changer">
+  <div class="content">
+    <h3 class="center"><img src="assets/images/github-icon.png">GitHub<span class="white"> Issues</span></h3>
+    <table class="table">
+        <thead>
+          <tr>
+            <th class="cell-stat gray wide">Issue:<span class="highlight"> #{{model.details.number}}</span></th>
+            <th class="gray">State:<span class="highlight"> {{model.details.state}}</span></th>
+            <th class="cell-stat-2x hidden-xs hidden-sm author gray">Labels</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center"><img class="profile" src={{model.details.user.avatar_url}} /><br>by {{userLink model.details.user.login truncate="name"}}<br><span>on {{formatDate model.details.created_at}}</span></td>
+            <td>
+              <h4 class="title">{{model.details.title}}<br><small class="tiny">{{model.details.body}}</small></h4>
+            </td>
+            <td>
+              <h4 class="title">
+              {{#if model.details.labels}}
+              {{#each model.details.labels as |label|}}
+              {{label.name}}<br>
+              {{/each}}
+              {{else}}
+              no labels
+              {{/if}}
+              </h4>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+
+
+      <table class="table">
+          <thead>
+            <tr>
+              <th class="cell-stat gray wide">Comments</th>
+              <th class="gray"><span class="highlight"></span></th>
+              <th class="cell-stat-2x hidden-xs hidden-sm author gray"></th>
+            </tr>
+          </thead>
+          {{#if model.comments}}
+          {{#each model.comments as |comment|}}
+          <tbody>
+            <tr>
+              <td class="text-center"><img class="profile" src={{comment.user.avatar_url}} /></td>
+              <td>
+                <h4 class="title"><small class="tiny">{{userLink comment.body}}</small></h4>
+              </td>
+              <td>
+                by {{userLink comment.user.login truncate="name"}}<br><span>on {{formatDate comment.created_at}}</span>
+              </td>
+            </tr>
+          </tbody>
+          {{/each}}
+          {{/if}}
+        </table>
+  </div>
+</div>

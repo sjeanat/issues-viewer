@@ -1,0 +1,48 @@
+{{outlet}}
+{{getIssues}}
+<div class="container color-changer">
+  <div class="content">
+    <h3 class="center"><img src="assets/images/github-icon.png">GitHub<span class="white"> Issues</span></h3>
+<table class="table">
+    <thead>
+      <tr>
+        <th class="cell-stat"></th>
+        <th class="gray">Issues {{input value=search}}</th>
+        <th class="cell-stat text-center hidden-xs hidden-sm issue-num gray">Issue #</th>
+        <th class="cell-stat-2x hidden-xs hidden-sm author gray">Author</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each issues as |issue|}}
+      <tr>
+        <td class="text-center centered"><img class="profile" src={{issue.user.avatar_url}} /></td>
+        <td>
+          <h4>{{#link-to 'issue-details' issue.number}}{{userLink issue.title truncate="title"}}{{/link-to}}<br><small>{{userLink issue.body truncate="body"}}</small><br><br>{{#if issue.labels}} {{format-labels issue.labels}}{{/if}}</h4>
+        </td>
+        <td class="text-center hidden-xs hidden-sm middle light">{{issue.number}}</td>
+        <td class="hidden-xs hidden-sm middle light">by {{userLink issue.user.login truncate="name"}}<br><span>on {{formatDate issue.created_at}}</span></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{#if showNums}}
+  <nav>
+  <ul class="pagination">
+    <li>
+      <a {{action 'prev'}} aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {{#each totalPageNums as |pageNum|}}
+    <li><a class="pages" {{action 'pageJump' pageNum}} href="#">{{pageNum}}</a></li>
+    {{/each}}
+    <li>
+      <a {{action 'next'}} aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+{{/if}}
+  </div>
+</div>
